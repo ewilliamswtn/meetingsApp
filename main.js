@@ -101,7 +101,10 @@ console.log(roomsBeingUsed.length);
 // This process should stop once a successful replacement has been made. This does not happen in my
 // implementation. A new meeting{} from meetings[] will continue to compare itself to meeting{} objects
 // in roomsBeingUsed[] even after it has made a successful replacement. In addition, every single time an
-// item from meetings[] does not replace an item from roomsBeingUsed[], this results in adding a new meeting{}
+// item from meetings[] does not replace an item from roomsBeingUsed[] will result in adding a new meeting{}
 // item to roomsBeingUsed[]. This should only occur once no replacement could be found in the entire array, as 
 // opposed to each individual time a replacement fails. This results in roomsBeingUsed[] infinitely growing. 
-// Because the loop on line 77 is based on the size of roomsBeingUsed[], this creates an infinite loop.
+// Because the loop on line 63 is based on the size of roomsBeingUsed[], this creates an infinite loop.
+
+// While I'm addressing errors, I would be remiss if I didn't mention that a loop within a loop is never 
+// optimal, and a more elegant solotution should have been established.
