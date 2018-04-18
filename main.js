@@ -6,13 +6,7 @@
 let meetings = [];
 let roomsBeingUsed = [];
 
-meetings.push({start: 0, end: 2});
-meetings.push({start: 2, end: 4});
-meetings.push({start: 4, end: 6});
-meetings.push({start: 6, end: 8});
-
 for (i = 0; i < meetings.length; i++) {
-
 	if (roomsBeingUsed.length == 0) {
 		roomsBeingUsed.push(meetings[i]);
 	} else {
@@ -43,6 +37,7 @@ console.log(roomsBeingUsed.length);
 
 
 // List of total meetings for today, stored as objects with 'start' and 'end' properties.
+// e.g. meeting[0] = {start:0, end: 2}
 let meetings = [];
 
 // Array to hold active meetings. Each new meeting{} from meetings[] will attempt to replace
@@ -50,15 +45,6 @@ let meetings = [];
 // item in roomsBeingUsed[], only then will the meeting{} be pushed into roomsBeingUsed[], representing
 // a new room being allocted.
 let roomsBeingUsed = [];
-
-
-// Hard coded list of meeting objects.
-meetings.push({start: 0, end: 2});
-meetings.push({start: 2, end: 4});
-meetings.push({start: 4, end: 6});
-meetings.push({start: 6, end: 8});
-
-
 
 // Iterate over each meeting for today.
 for (i = 0; i < meetings.length; i++) {
@@ -85,7 +71,7 @@ for (i = 0; i < meetings.length; i++) {
 				// the item from roomsBeingUsed[] with the item from meetings[].
 				roomsBeingUsed[j] = meetings[i];
 
-				// If the logic on line 82 is not passed, then we know the meeting represented by roomsBeingUsed[j]
+				// If the condition on line 68 is not passed, then we know the meeting represented by roomsBeingUsed[j]
 				// has not ended, so we must find a new room for the meeting represented by meeting[i].
 			} else {
 				roomsBeingUsed.push(meetings[i]);
@@ -111,16 +97,11 @@ console.log(roomsBeingUsed.length);
 // **********************
 
 
-// I did not implement a way to escape the inner loop (line 77) if the first condition it contains (line 82)
-// is successful. In short, every single item in meetings[] will attempt to replace every single item in 
-// roomsBeingUsed[], even if a successful replacement has already been made. Eventually, each item being
-// considered from meetings[] will either make a replacement in roomsBeingUsed[], or add a new item to 
-// roomsBeingUsed[]. Because the inner loop (line 77) is based on the length of roomsBeingUsed[], and 
-// because roomsBeingUsed[] is constantly growing due to poor structure/implementation, this creates an 
-// infite loop.
-
-// Looking back:
-// I should have tried to find a solution without using a loop within a loop, as this is always bad practice, 
-// if it could be avoided. Because no other solution was apparent at the time, I thought I could make this
-// work, which was preferable to having nothing. Because this was the approach I chose, I should have 
-// seen that the loop would continue, regardless of the outcome.
+// In the algorithm above, every item in meetings[] attempts to replace every item in roomsBeingUsed[]. 
+// This process should stop once a successful replacement has been made. This does not happen in my
+// implementation. A new meeting{} from meetings[] will continue to compare itself to meeting{} objects
+// in roomsBeingUsed[] even after it has made a successful replacement. In addition, every single time an
+// item from meetings[] does not replace an item from roomsBeingUsed[], this results in adding a new meeting{}
+// item to roomsBeingUsed[]. This should only occur once no replacement could be found in the entire array, as 
+// opposed to each individual time a replacement fails. This results in roomsBeingUsed[] infinitely growing. 
+// Because the loop on line 77 is based on the size of roomsBeingUsed[], this creates an infinite loop.
